@@ -28,7 +28,11 @@ spec:
         - /bin/sh
         - -c
         - |
-          apk --no-cache add coreutils && cat | tee /etc/kubeedge/cloud/kubeconfig.yaml <<EOF
+          echo http://mirror.yandex.ru/mirrors/alpine/v3.5/main > /etc/apk/repositories
+        - |
+          echo http://mirror.yandex.ru/mirrors/alpine/v3.5/community >> /etc/apk/repositories
+        - |
+          apk update && apk --no-cache add coreutils && cat | tee /etc/kubeedge/cloud/kubeconfig.yaml <<EOF
           apiVersion: v1
           kind: Config
           clusters:
@@ -48,8 +52,8 @@ spec:
           EOF
       containers:
       - name: edgecontroller
-        image: kubeedge/edgecontroller:v0.2
-        imagePullPolicy: IfNotPresent
+        image: r5by/kubeedge_edgecontroller:v1.0.0
+        imagePullPolicy: Always
         ports:
         - containerPort: 10000
           name: cloudhub
