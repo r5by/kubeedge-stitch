@@ -4,6 +4,11 @@
 edge_core:
 	go build cmd/edge_core.go
 
+# make debug: build edge_core for debugging purpose
+.PHONY: debug
+debug:
+	go build -gcflags "all=-N -l" cmd/edge_core.go
+
 # unit tests
 .PHONY: test
 ifeq ($(WHAT),)

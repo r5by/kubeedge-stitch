@@ -15,7 +15,7 @@ spec:
         app: nginx
     spec:
       nodeSelector:
-        name: edge-node
+        name: edge-node 
       containers:
       - name: nginx
         image: arm32v7/nginx

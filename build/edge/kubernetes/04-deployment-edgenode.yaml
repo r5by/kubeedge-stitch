@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: edgenode1
+  name: aces-pi-01
   namespace: kubeedge
   labels:
     k8s-app: kubeedge
@@ -21,7 +21,7 @@ spec:
       - name: edgenode
         securityContext:
           privileged: true
-        image: kubeedge/edgecore:latest
+        image: r5by/kubeedge_edgecore_armv7:v1.0.0 
         imagePullPolicy: IfNotPresent
         resources:
           limits:

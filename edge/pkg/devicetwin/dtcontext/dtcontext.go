@@ -51,7 +51,12 @@ func InitDTContext(context *context.Context) (*DTContext, error) {
 	var deviceMutex sync.Map
 	var mutex sync.RWMutex
 	// var deviceVersionList sync.Map
-
+        log.LOGGER.Infof("===> Enable dtconnect with nodeID: %s, and the DeviceMutex: %s", nodeID, deviceMutex)
+        log.LOGGER.Infof("===> Enable dtconnect with nodeID: %s, and the DeviceMutex: %s", nodeID, deviceMutex)
+	deviceMutex.Range(func(k,v interface{})bool{
+            log.LOGGER.Infof("DeviceMutext key: %s :: value: %s",k, v)
+	    return true
+	})
 	return &DTContext{
 		GroupID:        groupID,
 		NodeID:         nodeID,

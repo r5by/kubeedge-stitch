@@ -1,14 +1,14 @@
 mqtt:
-    server: tcp://127.0.0.1:1883 # external mqtt broker url.
+    server: tcp://aces-pi-01:1883 # external mqtt broker url.
     internal-server: tcp://127.0.0.1:1884 # internal mqtt broker url.
-    mode: 0 # 0: internal mqtt broker enable only. 1: internal and external mqtt broker enable. 2: external mqtt broker enable only.
+    mode: 2 # 0: internal mqtt broker enable only. 1: internal and external mqtt broker enable. 2: external mqtt broker enable only.
     qos: 0 # 0: QOSAtMostOnce, 1: QOSAtLeastOnce, 2: QOSExactlyOnce.
     retain: false # if the flag set true, server will store the message and can be delivered to future subscribers.
     session-queue-size: 100 # A size of how many sessions will be handled. default to 100.
 
 edgehub:
     websocket:
-        url: wss://0.0.0.0:10000/e632aba927ea4ac2b575ec1603d56f10/fb4ebb70-2783-42b8-b3ef-63e2fd6d242e/events
+        url: wss://129.107.206.131:32325/e632aba927ea4ac2b575ec1603d56f10/local-edge/events
         certfile: /etc/kubeedge/certs/edge.crt
         keyfile: /etc/kubeedge/certs/edge.key
         handshake-timeout: 30 #second
@@ -30,12 +30,12 @@ edgehub:
         auth-info-files-path: /var/IEF/secret
         placement-url: https://10.154.193.32:7444/v1/placement_external/message_queue
         project-id: e632aba927ea4ac2b575ec1603d56f10
-        node-id: fb4ebb70-2783-42b8-b3ef-63e2fd6d242e
+        node-id: local-edge 
 
 edged:
     register-node-namespace: default
-    hostname-override: fb4ebb70-2783-42b8-b3ef-63e2fd6d242e
-    interface-name: eth0
+    hostname-override: local-edge
+    interface-name: enp0s31f6 
     edged-memory-capacity-bytes: 7852396000
     node-status-update-frequency: 10 # second
     device-plugin-enabled: false

@@ -13,6 +13,8 @@ spec:
       kubeedge: edgecontroller
   template:
     metadata:
+      annotations:
+        container.apparmor.security.beta.kubernetes.io/edgecontroller: unconfined
       labels:
         k8s-app: kubeedge
         kubeedge: edgecontroller
@@ -23,16 +25,11 @@ spec:
         volumeMounts:
         - name: kubeconfig
           mountPath: /etc/kubeedge/cloud
-          subPath: kubeconfig.yaml
-        command:
+        args:
         - /bin/sh
         - -c
         - |
-          echo http://mirror.yandex.ru/mirrors/alpine/v3.5/main > /etc/apk/repositories
-        - |
-          echo http://mirror.yandex.ru/mirrors/alpine/v3.5/community >> /etc/apk/repositories
-        - |
-          apk update && apk --no-cache add coreutils && cat | tee /etc/kubeedge/cloud/kubeconfig.yaml <<EOF
+          apk --update add --no-cache coreutils && cat | tee /etc/kubeedge/cloud/kubeconfig.yaml <<EOF
           apiVersion: v1
           kind: Config
           clusters:
@@ -53,6 +50,10 @@ spec:
       containers:
       - name: edgecontroller
         image: r5by/kubeedge_edgecontroller:v1.0.0
+        securityContext:
+          capabilities:
+            add:
+            - SYS_PTRACE
         imagePullPolicy: Always
         ports:
         - containerPort: 10000
@@ -72,7 +73,6 @@ spec:
           mountPath: /etc/kubeedge/certs
         - name: kubeconfig
           mountPath: /etc/kubeedge/cloud
-          subPath: kubeconfig.yaml
       restartPolicy: Always
       serviceAccount: edgecontroller
       serviceAccountName: edgecontroller

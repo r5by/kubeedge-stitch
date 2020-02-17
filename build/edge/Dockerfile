@@ -1,5 +1,5 @@
-ARG BUILD_FROM=golang:1.12-alpine3.9
-ARG RUN_FROM=docker:dind
+ARG BUILD_FROM=golang:1.12-alpine3.10
+ARG RUN_FROM=docker:18-dind
 
 FROM ${BUILD_FROM} AS builder
 
@@ -9,9 +9,11 @@ COPY . /go/src/github.com/kubeedge/kubeedge
 
 RUN apk --no-cache update && \
 apk --no-cache upgrade && \
+apk add libc-dev && \
+apk add binutils-gold && \
 apk --no-cache add build-base linux-headers sqlite-dev && \
 CGO_ENABLED=1 go build -v -o /usr/local/bin/edge_core -ldflags="-w -s -extldflags -static" \
-github.com/kubeedge/kubeedge/edge/cmd
+/go/src/github.com/kubeedge/kubeedge/edge/cmd
 
 FROM ${RUN_FROM}
 

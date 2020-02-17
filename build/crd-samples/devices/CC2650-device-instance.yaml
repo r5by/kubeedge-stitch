@@ -12,14 +12,14 @@ spec:
     name: cc2650-sensortag
   protocol:
     bluetooth:
-      macAddress: "BC:6A:29:AE:CC:96"   #pls note it is optional to provide MAC address
+      macAddress: 
   nodeSelector:
     nodeSelectorTerms:
     - matchExpressions:
       - key: ''
         operator: In
         values:
-        - edge-node1          #pls give your edge node name
+        - edge-node-pi-01
 status:
   twins:
     - propertyName: temperature-enable

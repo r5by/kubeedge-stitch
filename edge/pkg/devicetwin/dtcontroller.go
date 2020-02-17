@@ -194,11 +194,13 @@ func SyncSqlite(context *dtcontext.DTContext) error {
 		return nil
 	}
 	for _, device := range *rows {
+                log.LOGGER.Info("iterating through devices ")
 		err := SyncDeviceFromSqlite(context, device.ID)
 		if err != nil {
 			continue
 		}
 	}
+        log.LOGGER.Info("Done SyncSqlite")
 	return nil
 
 }

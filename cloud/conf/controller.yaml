@@ -1,6 +1,6 @@
 controller:
   kube:
-    master: http://localhost:8080
+    master: http://localhost:6443
     namespace: ""
     content_type: "application/vnd.kubernetes.protobuf"
     qps: 5
@@ -22,7 +22,7 @@ cloudhub:
   node-limit: 10
 devicecontroller:
   kube:
-    master: http://localhost:8080
+    master: http://localhost:6443
     namespace: ""
     content_type: "application/vnd.kubernetes.protobuf"
     qps: 5
