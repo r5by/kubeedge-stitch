@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Node
+metadata:
+  name: edge-node-pi-02
+  labels:
+    name: edge-node-pi-02
+    node-role.kubernetes.io/edge: "" 

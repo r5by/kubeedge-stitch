@@ -1,0 +1,33 @@
+FROM golang:1.12.1-alpine3.9 AS builder
+
+COPY . /go/src/github.com/kubeedge/kubeedge
+
+# RUN CGO_ENABLED=0 go build -v -o /usr/local/bin/edgecontroller -ldflags="-w -s" \
+# github.com/kubeedge/kubeedge/cloud/cmd
+
+RUN CGO_ENABLED=0 go build -gcflags "all=-N -l" -v -o /usr/local/bin/edgecontroller  \
+github.com/kubeedge/kubeedge/cloud/cmd
+
+# Compile Delve
+RUN apk add --no-cache git
+RUN go get github.com/derekparker/delve/cmd/dlv
+
+FROM alpine:3.9
+
+# For debug
+EXPOSE 2345
+
+ENV GOARCHAIUS_CONFIG_PATH /etc/kubeedge/cloud
+
+# Allow delve to run on Alpine based containers.
+RUN apk add --no-cache libc6-compat
+
+VOLUME ["/etc/kubeedge/certs", "/etc/kubeedge/cloud/conf"]
+
+COPY --from=builder /usr/local/bin/edgecontroller /usr/local/bin/edgecontroller
+COPY --from=builder /go/bin/dlv /
+
+# COPY ./cloud/conf/kubeconfig.yaml /etc/kubeedge/cloud/kubeconfig.yaml
+
+ENTRYPOINT ["/dlv", "--listen=:2345", "--headless=true", "--api-version=2", "exec", "/usr/local/bin/edgecontroller"]
+# ENTRYPOINT ["edgecontroller"]
