@@ -8,6 +8,8 @@ COPY ./build/edge/tmp/qemu-${QEMU_ARCH}-static /usr/bin/
 COPY . /go/src/github.com/kubeedge/kubeedge
 
 RUN apk --no-cache update && \
+apk add libc-dev && \
+apk add binutils-gold && \
 apk --no-cache upgrade && \
 apk --no-cache add build-base linux-headers sqlite-dev && \
 CGO_ENABLED=1 go build -v -o /usr/local/bin/edgecore -ldflags="-w -s -extldflags -static" \

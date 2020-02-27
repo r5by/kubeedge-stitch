@@ -1,6 +1,6 @@
 
 GO_LDFLAGS=-ldflags '$(shell ../hack/lib/version.sh)'
-# make edgecore
+# make edgecore: remember to set GO111MODULE=off to disable go-mod to avoid some build error
 .PHONY: default edgecore
 edgecore:
 	go build ${GO_LDFLAGS}  cmd/edgecore/edgecore.go
@@ -31,6 +31,7 @@ integration_test:
 clean:
 	bash -x hack/clean.sh
 
+# cross_build on centOS7 failed!!
 .PHONY: cross_build
 cross_build:
 	export GOARCH=arm \
@@ -46,7 +47,7 @@ armv7:
         export GOOS="linux" \
         export GOARM=7 \
         export CGO_ENABLED=1 \
-        export CC=arm-linux-gnueabi-gcc; \
+        export CC=arm-linux-gnu-gcc; \
         go build cmd/edgecore/edgecore.go
 
 .PHONY: armv8
