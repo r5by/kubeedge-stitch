@@ -4,7 +4,7 @@
   "metadata": {
     "name": "aces-pi-01",
     "labels": {
-      "name": "edge-node",
+      "name": "aces-pi-01",
       "node-role.kubernetes.io/edge": ""
     }
   }

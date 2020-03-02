@@ -31,7 +31,7 @@ edgehub:
 edged:
     register-node-namespace: default
     hostname-override: localhost
-    interface-name: enp0s31f6
+    interface-name: cni0
     edged-memory-capacity-bytes: 7852396000
     node-status-update-frequency: 10 # second
     device-plugin-enabled: false
