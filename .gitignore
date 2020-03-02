@@ -1,6 +1,7 @@
 .DS_Store
 /_python_build
 *.pyc
+*.tar
 __pycache__
 *.swp
 .idea/**
@@ -10,7 +11,8 @@ __pycache__
 cloud/cloudcore.log   
 cloud/cloudcore
 cloud/admission
-edge/edgecore
+edge/edgecore_x86
+edge/edgecore_debug
 edgesite/edgesite
 keadm/keadm
 _output
