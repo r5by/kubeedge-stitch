@@ -13,7 +13,7 @@
     "buffer": "^5.2.1",
     "chokidar": "^2.1.2",
     "fs": "^0.0.1-security",
-    "log4js": "^4.0.2",
+    "log4js": "^6.4.0",
     "modbus-serial": "^7.4.2",
     "mqtt": "^2.18.8",
     "nodejs-base64": "^1.0.3",
